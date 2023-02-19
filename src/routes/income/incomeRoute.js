@@ -6,13 +6,14 @@ const {
     updateIncCtrl,
     deleteIncCtrl,
 } = require("../../controllers/income/incomeCtrl");
+const authMiddleware= require("../../middlewares/authMiddleware");
 
 const incomeRoute=  express.Router();
 
-incomeRoute.post("/", createIncCtrl);
-incomeRoute.get("/", fetchAllIncCtrl);
-incomeRoute.get("/:id", fetchIncDetailsCtrl); //api/income/676bnjnj (some ID)
-incomeRoute.put("/:id", updateIncCtrl);
-incomeRoute.delete("/:id", deleteIncCtrl);
+incomeRoute.post("/", authMiddleware, createIncCtrl);
+incomeRoute.get("/", authMiddleware, fetchAllIncCtrl);
+incomeRoute.get("/:id",authMiddleware, fetchIncDetailsCtrl); //api/income/676bnjnj (some ID)
+incomeRoute.put("/:id",authMiddleware, updateIncCtrl);
+incomeRoute.delete("/:id", authMiddleware,deleteIncCtrl);
 
 module.exports = incomeRoute;

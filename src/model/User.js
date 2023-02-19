@@ -45,6 +45,12 @@ if(!this.isModified("password"))
    next();
 });
 
+//Verifying the password
+
+userSchema.methods.isPasswordMatch = async function(enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
+};
+
 // Compiling the schema into a model
 const User= mongoose.model("User", userSchema);
 module.exports = User;
